@@ -36,7 +36,7 @@ namespace SimFrames { namespace Core {
             return;
         }
 
-        cycleTime  = 100;
+        cycleTime  = 5;
         IsActive   = true;
         TickThread = std::thread(&SimWindow::TickThreadFunc, this, cycleTime);
         MainThread = std::thread(&SimWindow::MainThreadFunc, this, cycleTime);
@@ -76,7 +76,7 @@ namespace SimFrames { namespace Core {
 
             if (window->IsActive)
             {
-                lv_tick_inc(10);
+                lv_tick_inc(cycleTime);
             }
             else
             {

@@ -25,6 +25,7 @@ namespace SimFrames { namespace Core {
 
             DescriptionContainer = lv_obj_create(Frame);
             lv_obj_set_size(DescriptionContainer, LV_PCT(descriptionWidth), LV_SIZE_CONTENT);
+            lv_obj_center(DescriptionContainer);
             lv_obj_clear_flag(DescriptionContainer, LV_OBJ_FLAG_SCROLLABLE);
             lv_obj_set_scrollbar_mode(DescriptionContainer, LV_SCROLLBAR_MODE_OFF);
 

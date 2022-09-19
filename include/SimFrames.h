@@ -7,4 +7,8 @@
 #include <Core/SimContainer.h>
 #include <Core/SimWidget.h>
 
+#include <Widgets/SimLabel.h>
+#include <Widgets/SimSlider.h>
+#include <Widgets/SimTextArea.h>
+
 #endif
