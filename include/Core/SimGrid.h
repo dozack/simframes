@@ -1,6 +1,7 @@
 #ifndef SIM_GRID_H_
 #define SIM_GRID_H_
 
+#include <Core/SimLock.h>
 #include <Core/SimTab.h>
 
 namespace SimFrames { namespace Core {
@@ -17,13 +18,14 @@ namespace SimFrames { namespace Core {
     class SimGrid
     {
     public:
-        SimFrames::Core::SimGridLayout &Config;
+        SimFrames::Core::SimGridLayout &Layout;
         SimFrames::Core::SimTab        &Tab;
+        SimFrames::Core::SimLock       &Lock;
         lv_obj_t                       *Obj;
 
         SimGrid(SimFrames::Core::SimTab &tab, SimFrames::Core::SimGridLayout &layout);
 
-        ~SimGrid();
+        ~SimGrid(){};
     };
 }}
 

@@ -2,10 +2,11 @@
 #define SIM_CONTAINER_H_
 
 #include <Core/SimGrid.h>
+#include <Core/SimLock.h>
 
 namespace SimFrames { namespace Core {
 
-    class SimContainerMapping
+    class SimContainerMap
     {
     public:
         uint32_t ColumnIndex;
@@ -13,16 +14,20 @@ namespace SimFrames { namespace Core {
         uint32_t RowIndex;
         uint32_t RowSpan;
 
-        SimContainerMapping(uint32_t column, uint32_t colSpan, uint32_t row, uint32_t rowSpan);
+        SimContainerMap(uint32_t column, uint32_t colSpan, uint32_t row, uint32_t rowSpan);
     };
 
     class SimContainer
     {
     public:
-        SimFrames::Core::SimGrid& Grid;
-        lv_obj_t*                 Obj;
+        SimFrames::Core::SimGrid&         Grid;
+        SimFrames::Core::SimContainerMap& Map;
+        SimFrames::Core::SimLock&         Lock;
+        lv_obj_t*                         Obj;
 
-        SimContainer(SimFrames::Core::SimGrid& grid, SimFrames::Core::SimContainerMapping& mapping);
+        SimContainer(SimFrames::Core::SimGrid& grid, SimFrames::Core::SimContainerMap& map);
+
+        ~SimContainer(){};
     };
 
 }}

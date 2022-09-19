@@ -1,9 +1,10 @@
 #ifndef SIM_WINDOW_H_
 #define SIM_WINDOW_H_
 
+#include <Core/SimLock.h>
 #include <lvgl/lvgl.h>
 
-#include <mutex>
+#include <thread>
 
 namespace SimFrames { namespace Core {
 
@@ -12,12 +13,27 @@ namespace SimFrames { namespace Core {
     class SimWindow
     {
     public:
-        std::mutex Lock;
-        lv_obj_t*  TabView;
+        SimFrames::Core::SimLock Lock;
+        bool                     IsActive;
+        lv_obj_t                *TabView;
 
         SimWindow(SimDriverInitFunc_t initFunc);
 
-        ~SimWindow();
+        ~SimWindow(){};
+
+        void Deploy();
+
+        void Terminate();
+
+        void WaitForTermination();
+
+    private:
+        std::thread TickThread;
+        std::thread MainThread;
+
+        static void TickThreadFunc(void *context, uint32_t cycleTime);
+
+        static void MainThreadFunc(void *context, uint32_t cycleTime);
     };
 
 }}

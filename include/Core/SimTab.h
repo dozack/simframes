@@ -13,13 +13,14 @@ namespace SimFrames { namespace Core {
     class SimTab
     {
     public:
-        std::string Description;
-        SimWindow  &Window;
-        lv_obj_t   *Obj;
+        std::string                 Description;
+        SimFrames::Core::SimWindow &Window;
+        SimFrames::Core::SimLock   &Lock;
+        lv_obj_t                   *Obj;
 
         SimTab(SimWindow &window, std::string description = "Tab");
 
-        ~SimTab();
+        ~SimTab(){};
     };
 
 }}

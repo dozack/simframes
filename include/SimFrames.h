@@ -7,8 +7,4 @@
 #include <Core/SimContainer.h>
 #include <Core/SimWidget.h>
 
-namespace SimFrames { namespace Core {
-
-}}
-
 #endif
