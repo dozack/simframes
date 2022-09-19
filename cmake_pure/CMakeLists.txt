@@ -24,9 +24,12 @@ target_sources(SimFrames
     ${CMAKE_CURRENT_LIST_DIR}/../src/Core/SimGrid.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/Core/SimContainer.cpp   
     ${CMAKE_CURRENT_LIST_DIR}/../src/Core/SimWidget.cpp
+
     ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimLabel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimSlider.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimTextArea.cpp
+
+    ${CMAKE_CURRENT_LIST_DIR}/../src/Extra/SimRelayPanel.cpp
     )
 
 target_link_libraries(SimFrames

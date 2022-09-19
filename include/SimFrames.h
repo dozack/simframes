@@ -11,4 +11,6 @@
 #include <Widgets/SimSlider.h>
 #include <Widgets/SimTextArea.h>
 
+#include <Extra/SimRelayPanel.h>
+
 #endif
