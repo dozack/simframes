@@ -12,7 +12,6 @@ target_include_directories(SimFrames
     PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/../include
     ${CMAKE_CURRENT_LIST_DIR}/../include/Core
-    ${CMAKE_CURRENT_LIST_DIR}/../include/Data
     ${CMAKE_CURRENT_LIST_DIR}/../include/Widgets
     ${CMAKE_CURRENT_LIST_DIR}/../include/Extra
     )
