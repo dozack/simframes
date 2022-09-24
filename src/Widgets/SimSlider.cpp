@@ -57,19 +57,29 @@ namespace SimFrames { namespace Widgets {
         , Obj(*this, width, description)
     {}
 
-    void SimSlider::SetRange(int minValue, int maxValue)
+    int SimSlider::SetRange(int minValue, int maxValue)
     {
         lv_slider_mode_t mode;
 
         mode = (minValue < 0) ? (LV_SLIDER_MODE_SYMMETRICAL) : (LV_SLIDER_MODE_NORMAL);
 
-        lv_slider_set_mode(Obj.Slider, mode);
         lv_slider_set_range(Obj.Slider, minValue, maxValue);
+        lv_slider_set_mode(Obj.Slider, mode);
+
+        return (0);
     }
 
-    int SimSlider::ReadValue()
+    int SimSlider::WriteValue(int32_t value)
     {
-        return ((int)lv_slider_get_value(Obj.Slider));
+        lv_slider_set_value(Obj.Slider, value, LV_ANIM_OFF);
+        lv_event_send(Obj.Slider, LV_EVENT_VALUE_CHANGED, this);
+        return (0);
+    }
+
+    int SimSlider::ReadValue(int32_t *value)
+    {
+        *value = lv_slider_get_value(Obj.Slider);
+        return (0);
     }
 
     void SimSlider::SetEvents(SimFrames::Widgets::SimSliderEvents *events)

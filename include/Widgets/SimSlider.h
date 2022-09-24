@@ -40,9 +40,11 @@ namespace SimFrames { namespace Widgets {
 
         ~SimSlider(){};
 
-        void SetRange(int minValue, int maxValue);
+        int SetRange(int minValue, int maxValue);
 
-        int ReadValue();
+        int WriteValue(int32_t value);
+
+        int ReadValue(int32_t *value);
 
         void SetEvents(SimFrames::Widgets::SimSliderEvents *events);
     };
