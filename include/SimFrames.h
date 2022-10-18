@@ -8,6 +8,8 @@
 #include <Core/SimContainer.h>
 #include <Core/SimWidget.h>
 
+#include <Data/SimDataObject.h>
+
 #include <Widgets/SimLabel.h>
 #include <Widgets/SimSlider.h>
 #include <Widgets/SimTextArea.h>
