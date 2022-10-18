@@ -1,7 +1,7 @@
 #ifndef SIM_LOCK_H_
 #define SIM_LOCK_H_
 
-#include <mutex>
+#include <Core/SimCommon.h>
 
 namespace SimFrames { namespace Core {
 

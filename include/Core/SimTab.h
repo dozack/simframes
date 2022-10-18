@@ -1,10 +1,7 @@
 #ifndef SIM_TAB_H_
 #define SIM_TAB_H_
 
-#include <lvgl/lvgl.h>
-#include <stdbool.h>
-
-#include <string>
+#include <Core/SimCommon.h>
 
 namespace SimFrames { namespace Core {
 

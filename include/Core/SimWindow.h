@@ -1,10 +1,8 @@
 #ifndef SIM_WINDOW_H_
 #define SIM_WINDOW_H_
 
+#include <Core/SimCommon.h>
 #include <Core/SimLock.h>
-#include <lvgl/lvgl.h>
-
-#include <thread>
 
 namespace SimFrames { namespace Core {
 

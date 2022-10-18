@@ -2,9 +2,7 @@
 #define SIM_RELAY_PANEL_H_
 
 #include <Core/SimWidget.h>
-
-#include <memory>
-#include <vector>
+#include <Core/SimCommon.h>
 
 namespace SimFrames { namespace Extra {
 

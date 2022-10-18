@@ -1,6 +1,7 @@
 #ifndef SIM_FRAMES_H_
 #define SIM_FRAMES_H_
 
+#include <Core/SimCommon.h>
 #include <Core/SimWindow.h>
 #include <Core/SimTab.h>
 #include <Core/SimGrid.h>
