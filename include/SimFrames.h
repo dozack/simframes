@@ -9,6 +9,7 @@
 #include <Core/SimWidget.h>
 
 #include <Data/SimDataObject.h>
+#include <Data/SimDataStorage.h>
 
 #include <Widgets/SimLabel.h>
 #include <Widgets/SimSlider.h>

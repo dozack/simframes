@@ -25,6 +25,7 @@ target_sources(SimFrames
     ${CMAKE_CURRENT_LIST_DIR}/../src/Core/SimWidget.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/../src/Data/SimDataObject.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../src/Data/SimDataStorage.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimLabel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimSlider.cpp
