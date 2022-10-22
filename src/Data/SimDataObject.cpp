@@ -4,98 +4,77 @@
 
 namespace SimFrames { namespace Data {
 
-    template <typename T>
-    SimDataObject<T>::SimDataObject(T value)
-        : Value(value)
+    SimDataObject::SimDataObject(bool defaultValue)
+        : ValueType(SimDataObjectType::Boolean)
+        , ValueSize(sizeof(defaultValue))
     {
-        const std::type_info &tin = typeid(T);
+        Value = new bool(defaultValue);
+    }
 
-        if (tin == typeid(bool))
+    SimDataObject::SimDataObject(int64_t defaultValue)
+        : ValueType(SimDataObjectType::Integer)
+        , ValueSize(sizeof(defaultValue))
+    {
+        Value = new int64_t(defaultValue);
+    }
+
+    SimDataObject::SimDataObject(double defaultValue)
+        : ValueType(SimDataObjectType::Decimal)
+        , ValueSize(sizeof(defaultValue))
+    {
+        Value = new double(defaultValue);
+    }
+
+    SimDataObject::~SimDataObject()
+    {
+        switch (ValueType)
         {
-            Type = SimDataObjectType::Boolean;
-        }
-        else if (tin == typeid(int32_t))
-        {
-            Type = SimDataObjectType::Signed32;
-        }
-        else if (tin == typeid(uint32_t))
-        {
-            Type = SimDataObjectType::Unsigned32;
-        }
-        else if (tin == typeid(std::string))
-        {
-            Type = SimDataObjectType::String;
+        case SimDataObjectType::Boolean:
+            delete ((bool *)Value);
+            break;
+        case SimDataObjectType::Integer:
+            delete ((int64_t *)Value);
+            break;
+        case SimDataObjectType::Decimal:
+            delete ((double *)Value);
+            break;
+        default:
+            break;
         }
     }
 
-    template <typename T>
-    SimDataObjectType SimDataObject<T>::GetType()
+    SimDataObjectType SimDataObject::GetType()
     {
-        return Type;
+        return (ValueType);
     }
 
-    template <typename T>
-    size_t SimDataObject<T>::GetSize()
+    size_t SimDataObject::GetSize()
     {
-        if (Type == SimDataObjectType::String)
-        {
-            {
-                void *sval = &Value;
-                return (static_cast<std::string *>(sval)->length());
-            }
-        }
-        else
-        {
-            return sizeof(T);
-        }
+        return (ValueSize);
     }
 
-    template <typename T>
-    SimFrames::Core::OperationResult SimDataObject<T>::ReadRaw(void *dest, size_t size)
+    SimFrames::Core::OperationResult SimDataObject::Read(void *dest, size_t maxSize)
     {
-        if ((dest == nullptr) || (size < sizeof(T)))
+        if (maxSize < ValueSize)
         {
             return SimFrames::Core::OperationResult::Error;
         }
-        memcpy(dest, &Value, size);
+
+        memcpy(dest, Value, ValueSize);
+
         return SimFrames::Core::OperationResult::Success;
     }
 
-    template <typename T>
-    SimFrames::Core::OperationResult SimDataObject<T>::WriteRaw(void *src, size_t size)
+    SimFrames::Core::OperationResult SimDataObject::Write(void *src, size_t maxSize)
     {
-        if ((src == nullptr) || (size > sizeof(T)))
+        if (maxSize > ValueSize)
         {
             return SimFrames::Core::OperationResult::Error;
         }
-        memcpy(&Value, src, size);
+
+        memcpy(Value, src, ValueSize);
+
         return SimFrames::Core::OperationResult::Success;
     }
 
-    template <typename T>
-    SimFrames::Core::OperationResult SimDataObject<T>::Read(T *dest)
-    {
-        if (dest == nullptr)
-        {
-            return SimFrames::Core::OperationResult::Error;
-        }
-        *dest = Value;
-        return SimFrames::Core::OperationResult::Success;
-    }
-
-    template <typename T>
-    SimFrames::Core::OperationResult SimDataObject<T>::Write(T *src)
-    {
-        if (src == nullptr)
-        {
-            return SimFrames::Core::OperationResult::Error;
-        }
-        Value = *src;
-        return SimFrames::Core::OperationResult::Success;
-    }
-
-    template class SimDataObject<bool>;
-    template class SimDataObject<int32_t>;
-    template class SimDataObject<uint32_t>;
-    template class SimDataObject<std::string>;
 }}

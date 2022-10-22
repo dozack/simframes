@@ -8,47 +8,36 @@ namespace SimFrames { namespace Data {
     enum SimDataObjectType
     {
         Boolean,
-        Signed32,
-        Unsigned32,
-        String,
+        Integer,
+        Decimal,
     };
 
-    class ISimDataObject
-    {
-    public:
-        ~ISimDataObject()                                                         = default;
-
-        virtual SimDataObjectType GetType()                                       = 0;
-
-        virtual size_t GetSize()                                                  = 0;
-
-        virtual SimFrames::Core::OperationResult ReadRaw(void *dest, size_t size) = 0;
-
-        virtual SimFrames::Core::OperationResult WriteRaw(void *src, size_t size) = 0;
-    };
-
-    template <typename T>
-    class SimDataObject : public ISimDataObject
+    class SimDataObject
     {
     private:
-        SimDataObjectType Type;
-        T                 Value;
+        SimDataObjectType ValueType;
+        size_t            ValueSize;
+        void             *Value;
+
+#if 0
+        
+        bool              BooleanValue;
+        int64_t           IntegerValue;
+        double            DecimalValue;
+#endif
 
     public:
-        SimDataObject(T value);
+        SimDataObject(bool defaultValue);
+        SimDataObject(int64_t defaultValue);
+        SimDataObject(double defaultValue);
+        ~SimDataObject();
 
-        SimDataObjectType GetType() override;
-
-        size_t GetSize() override;
-
-        SimFrames::Core::OperationResult ReadRaw(void *dest, size_t size) override;
-
-        SimFrames::Core::OperationResult WriteRaw(void *src, size_t size) override;
-
-        SimFrames::Core::OperationResult Read(T *dest);
-
-        SimFrames::Core::OperationResult Write(T *src);
+        SimDataObjectType                GetType();
+        size_t                           GetSize();
+        SimFrames::Core::OperationResult Read(void *dest, size_t maxSize);
+        SimFrames::Core::OperationResult Write(void *src, size_t maxSize);
     };
+
 }}
 
 #endif /* SIM_DATA_OBJECT_H_ */
