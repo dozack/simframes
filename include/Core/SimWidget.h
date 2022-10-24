@@ -36,4 +36,4 @@ namespace SimFrames { namespace Core {
 
 }}
 
-#endif
+#endif /* SIM_WIDGET_H_ */

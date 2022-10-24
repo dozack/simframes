@@ -19,13 +19,6 @@ namespace SimFrames { namespace Data {
         size_t            ValueSize;
         void             *Value;
 
-#if 0
-        
-        bool              BooleanValue;
-        int64_t           IntegerValue;
-        double            DecimalValue;
-#endif
-
     public:
         SimDataObject(bool defaultValue);
         SimDataObject(int64_t defaultValue);

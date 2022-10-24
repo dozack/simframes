@@ -15,11 +15,11 @@ namespace SimFrames { namespace Core {
         bool                     IsActive;
         lv_obj_t                *TabView;
 
-        SimWindow(SimDriverInitFunc_t initFunc);
+        SimWindow(SimDriverInitFunc_t initFunc = nullptr);
 
-        ~SimWindow(){};
+        ~SimWindow();
 
-        void Deploy();
+        void Deploy(uint32_t cycleTime = 10);
 
         void Terminate();
 

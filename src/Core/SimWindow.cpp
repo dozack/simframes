@@ -27,17 +27,23 @@ namespace SimFrames { namespace Core {
         TabView = lv_tabview_create(lv_scr_act(), LV_DIR_TOP, tabSize);
     }
 
-    void SimWindow::Deploy()
+    SimWindow::~SimWindow()
     {
-        uint32_t cycleTime;
+        Terminate();
+        WaitForTermination();
+    }
+
+    void SimWindow::Deploy(uint32_t cycleTime)
+    {
+        std::lock_guard<std::mutex> lk(Lock.Lock);
 
         if (IsActive)
         {
             return;
         }
 
-        cycleTime  = 5;
         IsActive   = true;
+
         TickThread = std::thread(&SimWindow::TickThreadFunc, this, cycleTime);
         MainThread = std::thread(&SimWindow::MainThreadFunc, this, cycleTime);
     }
@@ -68,20 +74,14 @@ namespace SimFrames { namespace Core {
     {
         SimFrames::Core::SimWindow *window = static_cast<SimFrames::Core::SimWindow *>(context);
 
-        for (;;)
+        while (window->IsActive)
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds(cycleTime));
-
-            std::lock_guard<std::mutex> lk(window->Lock.Lock);
-
-            if (window->IsActive)
             {
+                std::lock_guard<std::mutex> lk(window->Lock.Lock);
                 lv_tick_inc(cycleTime);
             }
-            else
-            {
-                break;
-            }
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(cycleTime));
         }
     }
 
@@ -89,20 +89,14 @@ namespace SimFrames { namespace Core {
     {
         SimFrames::Core::SimWindow *window = static_cast<SimFrames::Core::SimWindow *>(context);
 
-        for (;;)
+        while (window->IsActive)
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds(cycleTime));
-
-            std::lock_guard<std::mutex> lk(window->Lock.Lock);
-
-            if (window->IsActive)
             {
+                std::lock_guard<std::mutex> lk(window->Lock.Lock);
                 lv_task_handler();
             }
-            else
-            {
-                break;
-            }
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(cycleTime));
         }
     }
 
