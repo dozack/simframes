@@ -14,7 +14,7 @@ namespace SimFrames { namespace Widgets {
         lv_obj_set_scrollbar_mode(LabelContainer, LV_SCROLLBAR_MODE_OFF);
 
         Label = lv_label_create(LabelContainer);
-        lv_label_set_text(Label, "0");
+        lv_label_set_text(Label, "");
         lv_obj_center(Label);
         lv_obj_clear_flag(Label, LV_OBJ_FLAG_SCROLLABLE);
         lv_obj_set_scrollbar_mode(Label, LV_SCROLLBAR_MODE_OFF);
@@ -26,40 +26,22 @@ namespace SimFrames { namespace Widgets {
         , Obj(*this, width, description)
     {}
 
-    int SimLabel::WriteValue(int value)
+    SimFrames::Core::OperationResult SimLabel::WriteValue(std::string value)
     {
-        Value.IntValue = value;
-        lv_label_set_text_fmt(Obj.Label, "%d", Value.IntValue);
-        return (0);
+        Value = value;
+        lv_label_set_text(Obj.Label, Value.c_str());
+        return SimFrames::Core::OperationResult::Success;
     }
 
-    int SimLabel::WriteValue(std::string value)
-    {
-        Value.StringValue = value;
-        lv_label_set_text(Obj.Label, Value.StringValue.c_str());
-        return (0);
-    }
-
-    int SimLabel::ReadValue(int *value)
+    SimFrames::Core::OperationResult SimLabel::ReadValue(std::string *value)
     {
         if (value == nullptr)
         {
-            return (-1);
+            return SimFrames::Core::OperationResult::Error;
         }
 
-        *value = Value.IntValue;
-        return (0);
-    }
-
-    int SimLabel::ReadVlaue(std::string *value)
-    {
-        if (value == nullptr)
-        {
-            return (-1);
-        }
-
-        *value = Value.StringValue;
-        return (0);
+        *value = Value;
+        return SimFrames::Core::OperationResult::Success;
     }
 
 }}

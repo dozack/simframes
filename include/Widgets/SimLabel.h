@@ -18,34 +18,20 @@ namespace SimFrames { namespace Widgets {
         ~SimLabelObject(){};
     };
 
-    union SimLabelValue
-    {
-        int         IntValue;
-        std::string StringValue;
-
-        SimLabelValue(){};
-
-        ~SimLabelValue(){};
-    };
-
     class SimLabel : public SimFrames::Core::SimWidget
     {
     public:
         SimLabelObject Obj;
-        SimLabelValue  Value;
+        std::string    Value;
 
         SimLabel(SimFrames::Core::SimContainer &container, uint8_t width = 50,
                  std::string description = "Label");
 
         ~SimLabel(){};
 
-        int WriteValue(int value);
+        SimFrames::Core::OperationResult WriteValue(std::string value);
 
-        int WriteValue(std::string value);
-
-        int ReadValue(int *value);
-
-        int ReadVlaue(std::string *value);
+        SimFrames::Core::OperationResult ReadValue(std::string *value);
     };
 
 }}
