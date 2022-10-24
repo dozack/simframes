@@ -28,10 +28,9 @@ target_sources(SimFrames
     ${CMAKE_CURRENT_LIST_DIR}/../src/Data/SimDataStorage.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimLabel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimRelay.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimSlider.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimTextArea.cpp
-
-    ${CMAKE_CURRENT_LIST_DIR}/../src/Extra/SimRelayPanel.cpp
     )
 
 target_link_libraries(SimFrames

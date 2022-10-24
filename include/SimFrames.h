@@ -12,9 +12,8 @@
 #include <Data/SimDataStorage.h>
 
 #include <Widgets/SimLabel.h>
+#include <Widgets/SimRelay.h>
 #include <Widgets/SimSlider.h>
 #include <Widgets/SimTextArea.h>
-
-#include <Extra/SimRelayPanel.h>
 
 #endif
