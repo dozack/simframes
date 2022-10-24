@@ -46,7 +46,7 @@ namespace SimFrames { namespace Widgets {
 
             if (obj->Events)
             {
-                obj->Events->OnValueChanged(&obj->Parent);
+                obj->Events->OnValueChanged(obj->Parent);
             }
         }
     }
@@ -69,17 +69,17 @@ namespace SimFrames { namespace Widgets {
         return (0);
     }
 
-    int SimSlider::WriteValue(int32_t value)
+    SimFrames::Core::OperationResult SimSlider::WriteValue(int64_t value)
     {
-        lv_slider_set_value(Obj.Slider, value, LV_ANIM_OFF);
+        lv_slider_set_value(Obj.Slider, (int32_t)value, LV_ANIM_OFF);
         lv_event_send(Obj.Slider, LV_EVENT_VALUE_CHANGED, this);
-        return (0);
+        return SimFrames::Core::OperationResult::Success;
     }
 
-    int SimSlider::ReadValue(int32_t *value)
+    SimFrames::Core::OperationResult SimSlider::ReadValue(int64_t *value)
     {
-        *value = lv_slider_get_value(Obj.Slider);
-        return (0);
+        *value = (int64_t)lv_slider_get_value(Obj.Slider);
+        return SimFrames::Core::OperationResult::Success;
     }
 
     void SimSlider::SetEvents(SimFrames::Widgets::SimSliderEvents *events)

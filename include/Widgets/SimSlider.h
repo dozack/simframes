@@ -10,7 +10,7 @@ namespace SimFrames { namespace Widgets {
     class SimSliderEvents
     {
     public:
-        virtual void OnValueChanged(SimSlider *sender) = 0;
+        virtual void OnValueChanged(SimSlider &sender) = 0;
     };
 
     class SimSliderObject : public SimFrames::Core::SimWidgetObject
@@ -42,9 +42,9 @@ namespace SimFrames { namespace Widgets {
 
         int SetRange(int minValue, int maxValue);
 
-        int WriteValue(int32_t value);
+        SimFrames::Core::OperationResult WriteValue(int64_t value);
 
-        int ReadValue(int32_t *value);
+        SimFrames::Core::OperationResult ReadValue(int64_t *value);
 
         void SetEvents(SimFrames::Widgets::SimSliderEvents *events);
     };
