@@ -8,7 +8,7 @@ namespace SimFrames { namespace Widgets {
     {
         std::lock_guard<std::mutex> lk(Lock.Lock);
 
-        Body = lv_obj_create(Frame);
+        Body = lv_obj_create(lvWidgetFrame);
         lv_obj_set_size(Body, LV_PCT(descriptionWidth), LV_PCT(100));
         lv_obj_center(Body);
         lv_obj_set_style_bg_color(Body, RelayOffColor, 0);

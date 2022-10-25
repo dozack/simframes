@@ -8,7 +8,7 @@ namespace SimFrames { namespace Widgets {
     {
         std::lock_guard<std::mutex> lk(Lock.Lock);
 
-        TextArea = lv_textarea_create(Frame);
+        TextArea = lv_textarea_create(lvWidgetFrame);
         lv_obj_set_size(TextArea, LV_PCT(descriptionWidth), LV_SIZE_CONTENT);
         lv_obj_clear_flag(TextArea, LV_OBJ_FLAG_SCROLL_ON_FOCUS);
         lv_textarea_set_one_line(TextArea, true);

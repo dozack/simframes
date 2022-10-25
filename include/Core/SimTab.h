@@ -10,10 +10,9 @@ namespace SimFrames { namespace Core {
     class SimTab
     {
     public:
-        std::string                 Description;
         SimFrames::Core::SimWindow &Window;
         SimFrames::Core::SimLock   &Lock;
-        lv_obj_t                   *Obj;
+        lv_obj_t                   *lvTab;
 
         SimTab(SimWindow &window, std::string description = "Tab");
 

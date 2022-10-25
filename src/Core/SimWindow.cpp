@@ -24,7 +24,7 @@ namespace SimFrames { namespace Core {
             initFunc();
         }
 
-        TabView = lv_tabview_create(lv_scr_act(), LV_DIR_TOP, tabSize);
+        lvTabView = lv_tabview_create(lv_scr_act(), LV_DIR_TOP, tabSize);
     }
 
     SimWindow::~SimWindow()

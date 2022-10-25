@@ -23,7 +23,7 @@ namespace SimFrames { namespace Core {
         SimFrames::Core::SimGrid&         Grid;
         SimFrames::Core::SimContainerMap& Map;
         SimFrames::Core::SimLock&         Lock;
-        lv_obj_t*                         Obj;
+        lv_obj_t*                         lvContainer;
 
         SimContainer(SimFrames::Core::SimGrid& grid, SimFrames::Core::SimContainerMap& map);
 

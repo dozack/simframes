@@ -9,8 +9,8 @@ namespace SimFrames { namespace Core {
     class SimGridLayout
     {
     public:
-        const lv_coord_t *Columns;
-        const lv_coord_t *Rows;
+        const lv_coord_t *lvColumnMap;
+        const lv_coord_t *lvRowMap;
 
         SimGridLayout(const lv_coord_t *columns, const lv_coord_t *rows);
     };
@@ -21,7 +21,7 @@ namespace SimFrames { namespace Core {
         SimFrames::Core::SimGridLayout &Layout;
         SimFrames::Core::SimTab        &Tab;
         SimFrames::Core::SimLock       &Lock;
-        lv_obj_t                       *Obj;
+        lv_obj_t                       *lvGrid;
 
         SimGrid(SimFrames::Core::SimTab &tab, SimFrames::Core::SimGridLayout &layout);
 

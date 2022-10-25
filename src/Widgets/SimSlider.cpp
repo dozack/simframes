@@ -8,7 +8,7 @@ namespace SimFrames { namespace Widgets {
     {
         std::lock_guard<std::mutex> lk(Lock.Lock);
 
-        SliderContainer = lv_obj_create(Frame);
+        SliderContainer = lv_obj_create(lvWidgetFrame);
         lv_obj_set_size(SliderContainer, LV_PCT(descriptionWidth), LV_SIZE_CONTENT);
         lv_obj_center(SliderContainer);
         lv_obj_clear_flag(SliderContainer, LV_OBJ_FLAG_SCROLLABLE);

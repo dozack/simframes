@@ -13,7 +13,7 @@ namespace SimFrames { namespace Core {
     public:
         SimFrames::Core::SimLock Lock;
         bool                     IsActive;
-        lv_obj_t                *TabView;
+        lv_obj_t                *lvTabView;
 
         SimWindow(SimDriverInitFunc_t initFunc = nullptr);
 

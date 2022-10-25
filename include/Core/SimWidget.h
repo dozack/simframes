@@ -66,15 +66,15 @@ namespace SimFrames { namespace Core {
         /**
          * @brief   Main widget body frame
          */
-        lv_obj_t *Frame;
+        lv_obj_t *lvWidgetFrame;
         /**
          * @brief   Container for widget description label
          */
-        lv_obj_t *DescriptionContainer;
+        lv_obj_t *lvDescriptionFrame;
         /**
          * @brief   Description label
          */
-        lv_obj_t *DescriptionLabel;
+        lv_obj_t *lvDescriptionLabel;
         /**
          * @brief   Vector of attached event listeners
          */
