@@ -10,10 +10,11 @@
 
 #include <Data/SimDataObject.h>
 #include <Data/SimDataStorage.h>
+#include <Data/SimDataMapping.h>
 
 #include <Widgets/SimLabel.h>
 #include <Widgets/SimRelay.h>
 #include <Widgets/SimSlider.h>
 #include <Widgets/SimNumericInput.h>
 
-#endif
+#endif /* SIM_FRAMES_H_ */

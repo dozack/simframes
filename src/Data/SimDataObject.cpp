@@ -4,75 +4,83 @@
 
 namespace SimFrames { namespace Data {
 
-    SimDataObject::SimDataObject(bool defaultValue)
-        : ValueType(SimDataObjectType::Boolean)
-        , ValueSize(sizeof(defaultValue))
-    {
-        Value = new bool(defaultValue);
-    }
+    SimDataObject::SimDataObject(int32_t defaultValue)
+        : Value(defaultValue)
+    {}
 
-    SimDataObject::SimDataObject(int64_t defaultValue)
-        : ValueType(SimDataObjectType::Integer)
-        , ValueSize(sizeof(defaultValue))
+    void SimDataObject::OnWrite()
     {
-        Value = new int64_t(defaultValue);
-    }
-
-    SimDataObject::SimDataObject(double defaultValue)
-        : ValueType(SimDataObjectType::Decimal)
-        , ValueSize(sizeof(defaultValue))
-    {
-        Value = new double(defaultValue);
-    }
-
-    SimDataObject::~SimDataObject()
-    {
-        switch (ValueType)
+        for (auto it : Listeners)
         {
-        case SimDataObjectType::Boolean:
-            delete ((bool *)Value);
-            break;
-        case SimDataObjectType::Integer:
-            delete ((int64_t *)Value);
-            break;
-        case SimDataObjectType::Decimal:
-            delete ((double *)Value);
-            break;
-        default:
-            break;
+            if (it != nullptr)
+            {
+                it->OnWrite(*this);
+            }
         }
     }
 
-    SimDataObjectType SimDataObject::GetType()
+    void SimDataObject::OnRead()
     {
-        return (ValueType);
+        for (auto it : Listeners)
+        {
+            if (it != nullptr)
+            {
+                it->OnRead(*this);
+            }
+        }
     }
 
-    size_t SimDataObject::GetSize()
+    SimFrames::Core::OperationResult SimDataObject::AddListener(
+        SimDataObjectEventListener *listener)
     {
-        return (ValueSize);
-    }
+        auto it = std::find(Listeners.begin(), Listeners.end(), listener);
 
-    SimFrames::Core::OperationResult SimDataObject::Read(void *dest, size_t maxSize)
-    {
-        if (maxSize < ValueSize)
+        if (it != Listeners.end())
         {
             return SimFrames::Core::OperationResult::Error;
         }
 
-        memcpy(dest, Value, ValueSize);
+        Listeners.push_back(listener);
+        return SimFrames::Core::OperationResult::Success;
+    }
+
+    SimFrames::Core::OperationResult SimDataObject::RemoveListener(
+        SimDataObjectEventListener *listener)
+    {
+        Listeners.erase(std::find(Listeners.begin(), Listeners.end(), listener));
+        return SimFrames::Core::OperationResult::Success;
+    }
+
+    SimFrames::Core::OperationResult SimDataObject::Read(int32_t *dest)
+    {
+        if (dest == nullptr)
+        {
+            return SimFrames::Core::OperationResult::Error;
+        }
+
+        {
+            std::lock_guard<std::mutex> lk(Lock);
+            memcpy(dest, &Value, sizeof(Value));
+        }
+
+        OnRead();
 
         return SimFrames::Core::OperationResult::Success;
     }
 
-    SimFrames::Core::OperationResult SimDataObject::Write(void *src, size_t maxSize)
+    SimFrames::Core::OperationResult SimDataObject::Write(int32_t *src)
     {
-        if (maxSize > ValueSize)
+        if (src == nullptr)
         {
             return SimFrames::Core::OperationResult::Error;
         }
 
-        memcpy(Value, src, ValueSize);
+        {
+            std::lock_guard<std::mutex> lk(Lock);
+            memcpy(&Value, src, sizeof(Value));
+        }
+
+        OnWrite();
 
         return SimFrames::Core::OperationResult::Success;
     }

@@ -5,31 +5,53 @@
 
 namespace SimFrames { namespace Data {
 
-    enum SimDataObjectType
+    class SimDataObject;
+
+    class SimDataObjectEventListener
     {
-        Boolean,
-        Integer,
-        Decimal,
+    public:
+        /**
+         * @brief Destructor
+         */
+        virtual ~SimDataObjectEventListener()       = default;
+        /**
+         * @brief   Event handler called AFTER new src value is written to object
+         *
+         * @param   object      Reference to related object
+         */
+        virtual void OnWrite(SimDataObject &object) = 0;
+        /**
+         * @brief   Event handler called AFTER actual value is read into dest
+         *
+         * @param   object      Reference to related object
+         */
+        virtual void OnRead(SimDataObject &object)  = 0;
     };
 
     class SimDataObject
     {
     private:
-        SimDataObjectType ValueType;
-        size_t            ValueSize;
-        void             *Value;
+        std::vector<SimDataObjectEventListener *> Listeners;
+        std::mutex                                Lock;
+        int32_t                                   Value;
+
+        void OnWrite();
+        void OnRead();
 
     public:
-        SimDataObject(bool defaultValue);
-        SimDataObject(int64_t defaultValue);
-        SimDataObject(double defaultValue);
-        ~SimDataObject();
+        SimDataObject(int32_t defaultValue = 0);
+        ~SimDataObject(){};
 
-        SimDataObjectType                GetType();
-        size_t                           GetSize();
-        SimFrames::Core::OperationResult Read(void *dest, size_t maxSize);
-        SimFrames::Core::OperationResult Write(void *src, size_t maxSize);
+        SimFrames::Core::OperationResult AddListener(SimDataObjectEventListener *listener);
+
+        SimFrames::Core::OperationResult RemoveListener(SimDataObjectEventListener *listener);
+
+        SimFrames::Core::OperationResult Read(int32_t *dest);
+
+        SimFrames::Core::OperationResult Write(int32_t *src);
     };
+
+    typedef std::shared_ptr<SimDataObject> RSimDataObject;
 
 }}
 
