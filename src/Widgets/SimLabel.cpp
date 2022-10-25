@@ -30,8 +30,8 @@ namespace SimFrames { namespace Widgets {
     {
         if (value != Value)
         {
-            lv_label_set_text(Label, Value.c_str());
             Value = value;
+            lv_label_set_text(Label, Value.c_str());
 
             OnValueChanged();
         }
