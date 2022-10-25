@@ -30,7 +30,7 @@ target_sources(SimFrames
     ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimLabel.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimRelay.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimSlider.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimTextArea.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../src/Widgets/SimNumericInput.cpp
     )
 
 target_link_libraries(SimFrames

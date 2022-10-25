@@ -9,29 +9,20 @@ namespace SimFrames { namespace Widgets {
     static constexpr lv_color_t RelayOnColor  = LV_COLOR_MAKE(119, 221, 119);
     static constexpr lv_color_t RelayOffColor = LV_COLOR_MAKE(220, 220, 220);
 
-    class SimRelay;
-
-    class SimRelayObject : public SimFrames::Core::SimWidgetObject
+    class SimRelay : public SimFrames::Core::SimWidget
     {
-    protected:
+    private:
         bool      State;
         lv_obj_t *Body;
         lv_obj_t *Indicator;
 
     public:
-        SimRelayObject(SimRelay &parent, uint8_t width, std::string description = "");
-
-        ~SimRelayObject(){};
-    };
-
-    class SimRelay : public SimFrames::Core::SimWidget,
-                     SimFrames::Widgets::SimRelayObject
-    {
-    public:
-        SimRelay(SimFrames::Core::SimContainer &container, uint8_t width = 50,
+        SimRelay(SimFrames::Core::SimContainer &container, uint8_t descriptionWidth,
                  std::string description = "Relay");
 
         ~SimRelay(){};
+
+        SimFrames::Core::SimWidgetType GetType() override;
 
         SimFrames::Core::OperationResult SetState(bool state);
 

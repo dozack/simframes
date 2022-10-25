@@ -5,48 +5,28 @@
 
 namespace SimFrames { namespace Widgets {
 
-    class SimSlider;
-
-    class SimSliderEvents
-    {
-    public:
-        virtual void OnValueChanged(SimSlider &sender) = 0;
-    };
-
-    class SimSliderObject : public SimFrames::Core::SimWidgetObject
-    {
-    public:
-        SimSlider       &Parent;
-        lv_obj_t        *SliderContainer;
-        lv_obj_t        *Slider;
-        lv_obj_t        *SliderValue;
-        SimSliderEvents *Events;
-
-        SimSliderObject(SimSlider &parent, uint8_t width, std::string description = "");
-
-        ~SimSliderObject(){};
-
-    private:
-        static void OnEvent(lv_event_t *event);
-    };
-
     class SimSlider : public SimFrames::Core::SimWidget
     {
-    public:
-        SimSliderObject Obj;
+    private:
+        lv_obj_t *SliderContainer;
+        lv_obj_t *Slider;
+        lv_obj_t *SliderValue;
 
-        SimSlider(SimFrames::Core::SimContainer &container, uint8_t width = 50,
+        static void _event_callback(lv_event_t *event);
+
+    public:
+        SimSlider(SimFrames::Core::SimContainer &container, uint8_t descriptionWidth = 50,
                   std::string description = "Slider");
 
         ~SimSlider(){};
 
-        int SetRange(int minValue, int maxValue);
+        SimFrames::Core::SimWidgetType GetType() override;
 
-        SimFrames::Core::OperationResult WriteValue(int64_t value);
+        SimFrames::Core::OperationResult SetRange(int32_t minValue, int32_t maxValue);
 
-        SimFrames::Core::OperationResult ReadValue(int64_t *value);
+        SimFrames::Core::OperationResult WriteValue(int32_t value);
 
-        void SetEvents(SimFrames::Widgets::SimSliderEvents *events);
+        SimFrames::Core::OperationResult ReadValue(int32_t *value);
     };
 
 }}

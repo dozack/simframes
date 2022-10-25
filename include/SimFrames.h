@@ -14,6 +14,6 @@
 #include <Widgets/SimLabel.h>
 #include <Widgets/SimRelay.h>
 #include <Widgets/SimSlider.h>
-#include <Widgets/SimTextArea.h>
+#include <Widgets/SimNumericInput.h>
 
 #endif
