@@ -125,6 +125,8 @@ namespace SimFrames { namespace Core {
         virtual SimWidgetType GetType();
     };
 
+    typedef std::shared_ptr<SimWidget> RSimWidget;
+
 }}
 
 #endif /* SIM_WIDGET_H_ */
